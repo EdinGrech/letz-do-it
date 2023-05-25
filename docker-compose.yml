@@ -15,7 +15,7 @@ services:
       - ./mysql-data:/var/lib/mysql
       - ./setup.sql:/docker-entrypoint-initdb.d/setup.sql
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABASE}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${PHP_root_password}
+      MYSQL_DATABASE: ${PHP_DB_database}
+      MYSQL_USER: ${PHP_DB_username}
+      MYSQL_PASSWORD: ${PHP_DB_password}
