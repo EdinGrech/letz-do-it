@@ -1,8 +1,12 @@
 <?php
+session_destroy();
+?>
+
+<?php
 include '../src/envLoader.php';
 use DevCoder\DotEnv;
 
-(new DotEnv(__DIR__ . '../../.env'))->load();
+(new DotEnv(__DIR__ . '/../.env'))->load();
 //get env details and connect to db
 $serverURL = getenv("PHP_DB_serverURL");
 $username_db = getenv("PHP_DB_username");
@@ -12,13 +16,12 @@ $database = getenv("PHP_DB_database");
 $email = $_POST['email'];
 $password = $_POST['password'];
 //encrip password with sha1
-$password = sha1($password); //<--to change
+$password = sha1($password);
 
 $conn = new mysqli($serverURL, $username_db, $password_db, $database);
 //check if email already exists
 $query = "SELECT * FROM users WHERE email = '$email'";
 if ($conn->query($query)->num_rows > 0) {
-    //well formatted echo to indicare that email already exists
     include '../components/head.php';
     echo "
     <html lang='en'>
@@ -42,6 +45,7 @@ if ($conn->query($query)->num_rows > 0) {
     $user_id = $conn->insert_id;
     $conn->query("INSERT INTO groups (owner_id) VALUES ('$user_id')");
     session_start();
+    $_SESSION['user'] = $email;
     header("Location: ../dashboard.php");
 }
 ?>

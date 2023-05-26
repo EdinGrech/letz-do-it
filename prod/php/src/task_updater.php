@@ -6,7 +6,7 @@ if (!isset($_SESSION['user'])) {
 include 'envLoader.php';
 use DevCoder\DotEnv;
 
-(new DotEnv(__DIR__ . '/../../.env'))->load();
+(new DotEnv(__DIR__ . '/../.env'))->load();
 
 $serverURL = getenv("PHP_DB_serverURL");
 $username_db = getenv("PHP_DB_username");

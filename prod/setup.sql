@@ -24,19 +24,19 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `groups`
+-- Table structure for table `_groups_`
 --
 
-CREATE TABLE `groups` (
+CREATE TABLE `_groups_` (
   `id` int(12) NOT NULL,
   `owner_id` int(12) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `groups`
+-- Dumping data for table `_groups_`
 --
 
-INSERT INTO `groups` (`id`, `owner_id`) VALUES
+INSERT INTO `_groups_` (`id`, `owner_id`) VALUES
 (1, 1),
 (2, 1),
 (4, 1),
@@ -122,9 +122,9 @@ INSERT INTO `user_group_relations` (`id`, `group_id`, `user_id`) VALUES
 --
 
 --
--- Indexes for table `groups`
+-- Indexes for table `_groups_`
 --
-ALTER TABLE `groups`
+ALTER TABLE `_groups_`
   ADD PRIMARY KEY (`id`),
   ADD KEY `owner_id` (`owner_id`);
 
@@ -154,9 +154,9 @@ ALTER TABLE `user_group_relations`
 --
 
 --
--- AUTO_INCREMENT for table `groups`
+-- AUTO_INCREMENT for table `_groups_`
 --
-ALTER TABLE `groups`
+ALTER TABLE `_groups_`
   MODIFY `id` int(12) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
@@ -182,22 +182,22 @@ ALTER TABLE `user_group_relations`
 --
 
 --
--- Constraints for table `groups`
+-- Constraints for table `_groups_`
 --
-ALTER TABLE `groups`
-  ADD CONSTRAINT `groups_ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `_groups_`
+  ADD CONSTRAINT `_groups__ibfk_1` FOREIGN KEY (`owner_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tasks`
 --
 ALTER TABLE `tasks`
-  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `tasks_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `_groups_` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `user_group_relations`
 --
 ALTER TABLE `user_group_relations`
-  ADD CONSTRAINT `user_group_relations_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `user_group_relations_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `_groups_` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `user_group_relations_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 

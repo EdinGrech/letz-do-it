@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html lang="en">
 
 <?php
@@ -6,7 +9,6 @@ include 'components/head.php';
 
 <body>
     <?php
-    session_start();
     if (!isset($_SESSION['user'])) {
         header("Location: ../index.php");
     }
@@ -68,7 +70,6 @@ include 'components/head.php';
             }
         } else {
             $url = $_SERVER['REQUEST_URI'];
-            //checkbox value should be 0 if not checked and 1 if checked
             echo '  <form method="POST" action=' . $url . '>
                 <div class="form-group">
                     <label for="task_description">Task Description</label>
@@ -77,8 +78,7 @@ include 'components/head.php';
                 </div>
                 <div class="form-group">
                     <label for="task_status">Task Status</label>
-                    <checkbox type="checkbox" class="form-control" id="task_status" name="task_status"
-                        placeholder="Task Status">
+                    <input type="text" class="form-control" id="task_status" name="task_status" placeholder="Task Status">
                 </div>
                 <input type="hidden" name="group_id" value="<?php echo $group_id_furl ?>">
                 <button type="submit" class="btn btn-primary">Submit</button>
