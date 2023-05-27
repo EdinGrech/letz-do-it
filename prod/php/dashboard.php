@@ -1,24 +1,19 @@
 <?php
 session_start();
 ?>
-
 <?php
 include 'src/envLoader.php';
 use DevCoder\DotEnv;
-
 (new DotEnv(__DIR__ . '/.env'))->load();
 $serverURL = getenv("PHP_DB_serverURL");
 $username_db = getenv("PHP_DB_username");
 $password_db = getenv("PHP_DB_password");
 $database = getenv("PHP_DB_database");
-
 if (!isset($_SESSION['user'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $password = sha1($password);
-
     $conn = new mysqli($serverURL, $username_db, $password_db, $database);
-
     if ($conn->query("SELECT * FROM users WHERE email = '$email' AND password = '$password'")->num_rows > 0) {
         $_SESSION['user'] = $email;
     } else {

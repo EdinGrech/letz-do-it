@@ -5,9 +5,8 @@
             <?php
             include 'src/user_id_getter.php';
             $user_details = $user->get_user_img_url($_SESSION['user']);
-            $domain = $_SERVER['HTTP_HOST'];
             echo '  <div style="display: flex; flex-direction: row; align-items: center;">
-                        <img src="' . 'http://' . $domain . '/' . $user_details . '" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
+                        <img src="' . $user_details . '" style="width: 40px; height: 40px; border-radius: 50%; margin-right: 10px;">
                         <p style="margin: 0;">' . $_SESSION['user'] . '</p>
                     </div>';
             ?>

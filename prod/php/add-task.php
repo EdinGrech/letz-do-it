@@ -1,5 +1,8 @@
 <?php
 session_start();
+if (!isset($_SESSION['user'])) {
+    header("Location: ../index.php");
+}
 ?>
 <html lang="en">
 
@@ -9,10 +12,6 @@ include 'components/head.php';
 
 <body>
     <?php
-    if (!isset($_SESSION['user'])) {
-        header("Location: ../index.php");
-    }
-
     include 'src/envLoader.php';
     use DevCoder\DotEnv;
 
