@@ -10,9 +10,27 @@ $password_db = getenv("PHP_DB_password");
 $database = getenv("PHP_DB_database");
 
 if (!isset($_SESSION['user'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password = sha1($password);
+    $email = mysqli_real_escape_string($conn, trim($_POST['email']));
+    $password = mysqli_real_escape_string($conn, trim($_POST['password']));
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strlen($password) < 3) {
+        include '../components/head.php';
+        echo "
+        <html lang='en'>
+        <head>
+            <link rel='stylesheet' href='../styles/styles.css'>
+        </head>
+        <body>
+            <div class='auth-cont'>
+                <div class='auth-form'>
+                    <h3>Invalid email or password</h3>
+                    <a href='../index.php'>Sign up</a>
+                </div>
+            </div>
+        </body>
+        </html>";
+        die();
+    }
+    $password = crypt($password, '$2a$07$usesomesillystringforsalt$');
 
     $conn = new mysqli($serverURL, $username_db, $password_db, $database);
 

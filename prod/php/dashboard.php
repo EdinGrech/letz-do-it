@@ -10,10 +10,10 @@ $username_db = getenv("PHP_DB_username");
 $password_db = getenv("PHP_DB_password");
 $database = getenv("PHP_DB_database");
 if (!isset($_SESSION['user'])) {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $password = sha1($password);
     $conn = new mysqli($serverURL, $username_db, $password_db, $database);
+    $email = mysqli_real_escape_string($conn, trim($_POST['email']));
+    $password = mysqli_real_escape_string($conn, trim($_POST['password']));
+    $password = crypt($password, '$2a$07$usesomesillystringforsalt$');
     if ($conn->query("SELECT * FROM users WHERE email = '$email' AND password = '$password'")->num_rows > 0) {
         $_SESSION['user'] = $email;
     } else {
@@ -55,9 +55,6 @@ include 'components/head.php';
                     </div>
                 </div>
                 <?php
-                //Array ( [id] => 1 [group_id] => 1 [content] => some task here [task_status] => 0 )
-                //print_r($tasks);
-                //echo a table with all the tasks
                 echo '<table class="table table-striped table-dark">
                 <thead>
                 <tr>

@@ -1,7 +1,4 @@
 <?php
-session_destroy();
-?>
-<?php
 include '../src/envLoader.php';
 use DevCoder\DotEnv;
 (new DotEnv(__DIR__ . '/../.env'))->load();
@@ -9,10 +6,10 @@ $serverURL = getenv("PHP_DB_serverURL");
 $username_db = getenv("PHP_DB_username");
 $password_db = getenv("PHP_DB_password");
 $database = getenv("PHP_DB_database");
-$email = $_POST['email'];
-$password = $_POST['password'];
-$password = sha1($password);
 $conn = new mysqli($serverURL, $username_db, $password_db, $database);
+$email = mysqli_real_escape_string($conn, trim($_POST['email']));
+$password = mysqli_real_escape_string($conn, trim($_POST['password']));
+$password = crypt($password, '$2a$07$usesomesillystringforsalt$');
 $query = "SELECT * FROM users WHERE email = '$email'";
 if ($conn->query($query)->num_rows > 0) {
     include '../components/head.php';

@@ -31,7 +31,7 @@ include 'components/head.php';
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $upload_file = 'images/' . basename($_FILES['img_link']['name']);
-            $email = $_POST['email'];
+            $email = mysqli_real_escape_string($conn, trim($_POST['email']));
             if (move_uploaded_file($_FILES['img_link']['tmp_name'], $upload_file)) {
                 $conn->query("UPDATE users SET img_link = '$upload_file' WHERE email = '$email'");
                 echo "<div class='alert alert-success' role='alert'>

@@ -29,7 +29,7 @@ include 'components/head.php';
         <?php
         $user_id = $user->get_user_id($_SESSION['user']);
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $users = $_POST['users'];
+            $users = mysqli_real_escape_string($conn, trim($_POST['users']));
             //insert group into db with owner_id = $user->get_user_id($_SESSION['user']));
             $conn->query("INSERT INTO groups (owner_id) VALUES ('$user_id')");
             //last group added id = $conn->insert_id

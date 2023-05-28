@@ -32,9 +32,9 @@ include 'components/head.php';
     <div style="margin: 20px;">
         <?php
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $task_description = $_POST['task_description'];
-            $task_status = $_POST['task_status'];
-            $group_id = $_GET['group_id'];
+            $task_description = mysqli_real_escape_string($conn, trim($_POST['task_description']));
+            $task_status = mysqli_real_escape_string($conn, trim($_POST['task_status']));
+            $group_id = mysqli_real_escape_string($conn, trim($_GET['group_id']));
             include 'src/user_id_getter.php';
             $user_id = $user->get_user_id($_SESSION['user']);
             include 'src/group_getter.php';
@@ -77,7 +77,7 @@ include 'components/head.php';
                 </div>
                 <div class="form-group">
                     <label for="task_status">Task Status</label>
-                    <input type="text" class="form-control" id="task_status" name="task_status" placeholder="Task Status">
+                    <input type="hidden" name="task_status" value="0">
                 </div>
                 <input type="hidden" name="group_id" value="<?php echo $group_id_furl ?>">
                 <button type="submit" class="btn btn-primary">Submit</button>
