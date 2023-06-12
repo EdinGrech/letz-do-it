@@ -19,11 +19,14 @@ $database = getenv("PHP_DB_database");
 $conn = new mysqli($serverURL, $username_db, $password_db, $database);
 //from the task_id get the group_id and then check if the user is the owner of the group by using the $_SESSION['user'] and compare it with the owner_id
 $group_id = $conn->query("SELECT group_id FROM tasks WHERE id = '$task_id'")->fetch_assoc()['group_id'];
-$owner_id = $conn->query("SELECT owner_id FROM groups WHERE id = '$group_id'")->fetch_assoc()['owner_id'];
+$owner_id = $conn->query("SELECT owner_id FROM _groups_ WHERE id = '$group_id'")->fetch_assoc()['owner_id'];
 //get user_id from email ($_SESSION['user'])
 $user_id = $conn->query("SELECT id FROM users WHERE email = '" . $_SESSION['user'] . "'")->fetch_assoc()['id'];
 //if the user is the owner of the group then delete the task
-include 'head.php';
+?>
+<div style="margin: 20px;">
+<?php
+include '../components/head.php';
 if ($owner_id == $user_id) {
     $conn->query("DELETE FROM tasks WHERE id = '$task_id'");
     echo "Task deleted";
@@ -33,3 +36,4 @@ if ($owner_id == $user_id) {
     echo '<br><a href="../dashboard.php">Go back</a>';
 }
 ?>
+</div>

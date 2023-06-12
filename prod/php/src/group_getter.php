@@ -29,7 +29,7 @@ function get_user_groups($user_id, $serverURL, $username_db, $password_db, $data
         die("Connection failed: " . $conn->connect_error);
     }
     
-    $result = $conn->query("SELECT * FROM user_group_relations WHERE user_id = '$user_id'");
+    $result = $conn->query("SELECT group_id FROM user_group_relations WHERE user_id = '$user_id'");
     if (!$result) {
         die("Query failed: " . $conn->error);
     }

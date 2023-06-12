@@ -35,23 +35,11 @@ include 'components/head.php';
             $task_description = mysqli_real_escape_string($conn, trim($_POST['task_description']));
             $task_status = mysqli_real_escape_string($conn, trim($_POST['task_status']));
             $group_id = mysqli_real_escape_string($conn, trim($_GET['group_id']));
-            include 'src/user_id_getter.php';
+            //include 'src/user_id_getter.php';
             $user_id = $user->get_user_id($_SESSION['user']);
             include 'src/group_getter.php';
             $groups_owner = get_owner_user_groups($user_id, $serverURL, $username_db, $password_db, $database);
             //echo all veriables with lables
-            echo "<div class='alert alert-success' role='alert'>
-        Task Description: $task_description
-        </div>
-            <div class='alert alert-success' role='alert'>
-                Task Status: $task_status
-            </div>
-            <div class='alert alert-success' role='alert'>
-                Group ID: $group_id
-            </div>
-            <div class='alert alert-success' role='alert'>
-                User ID: $user_id
-            </div>";
             if (!in_array($group_id, array_column($groups_owner, 'id'))) {
                 echo "  <div class='alert alert-success' role='alert'>
                         You are not the owner of this group
@@ -62,6 +50,18 @@ include 'components/head.php';
             if ($task_description != null && $task_status != null) {
                 include 'src/task_gettter.php';
                 $task__->createTask($task_description, $task_status, $group_id);
+                echo "<div class='alert alert-success' role='alert'>
+                    Task Description: $task_description
+                    </div>
+                        <div class='alert alert-success' role='alert'>
+                            Task Status: $task_status
+                        </div>
+                        <div class='alert alert-success' role='alert'>
+                            Group ID: $group_id
+                        </div>
+                        <div class='alert alert-success' role='alert'>
+                            User ID: $user_id
+                        </div>";
                 echo "  <div class='alert alert-success' role='alert'>
                         Task added successfully
                     </div>

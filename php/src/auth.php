@@ -57,7 +57,7 @@ if ($conn->query($query)->num_rows > 0) {
     $conn->query($query);
     //create user group
     $user_id = $conn->insert_id;
-    $conn->query("INSERT INTO groups (owner_id) VALUES ('$user_id')");
+    $conn->query("INSERT INTO _groups_ (owner_id) VALUES ('$user_id')");
     session_start();
     header("Location: ../dashboard.php");
 }

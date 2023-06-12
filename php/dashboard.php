@@ -148,7 +148,7 @@ include 'components/head.php';
                 <?php
                 //for group in $groups_user create a table and load the tasks
                 foreach ($groups_user as $group) {
-                    $tasks = $task__->getTasks($group['id']);
+                    $tasks = $task__->getTasks($group['group_id']);
                     echo '<table class="table table-striped table-dark style="min-width: 34%;">
                             <thead>
                             <tr>

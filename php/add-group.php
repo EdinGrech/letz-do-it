@@ -29,17 +29,23 @@ include 'components/head.php';
         <?php
         $user_id = $user->get_user_id($_SESSION['user']);
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
-            $users = mysqli_real_escape_string($conn, trim($_POST['users']));
-            //insert group into db with owner_id = $user->get_user_id($_SESSION['user']));
-            $conn->query("INSERT INTO groups (owner_id) VALUES ('$user_id')");
-            //last group added id = $conn->insert_id
-            $group_id = $conn->insert_id;
+            $users = $_POST['users'];
+            $cleanedUsers = array();
             foreach ($users as $user__) {
-                //add user to db in table user_group_relations group_id = $_GET['group_id'], user_id = $user_id
-                $user_id = $user->get_user_id($user__);
-                $conn->query("INSERT INTO user_group_relations (group_id, user_id) VALUES ('$group_id', '$user_id')");
-            }
-            header("Location: dashboard.php");
+                $cleanedUser = mysqli_real_escape_string($conn, trim($user__));
+                $cleanedUsers[] = $cleanedUser;
+            }     
+            $conn->query("INSERT INTO _groups_ (owner_id) VALUES ('$user_id')");
+            $group_id = $conn->insert_id;
+        
+            foreach ($cleanedUsers as $cleanedUser) {
+                $user_add_id = $user->get_user_id($cleanedUser);
+                $conn->query("INSERT INTO user_group_relations (group_id, user_id) VALUES ('$group_id', '$user_add_id')");
+            }  
+            echo "<div class='alert alert-success' role='alert'>
+                    Group Created
+                  </div>
+                  <br><a href='../dashboard.php'>Go back</a>";
         } else {
             //get list of all user emails
             $emails = $conn->query("SELECT email FROM users WHERE id != '$user_id'");

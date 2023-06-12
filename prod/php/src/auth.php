@@ -32,7 +32,7 @@ if ($conn->query($query)->num_rows > 0) {
         VALUES ('$email', '$password')";
     $conn->query($query);
     $user_id = $conn->insert_id;
-    $conn->query("INSERT INTO groups (owner_id) VALUES ('$user_id')");
+    $conn->query("INSERT INTO _groups_ (owner_id) VALUES ('$user_id')");
     session_start();
     $_SESSION['user'] = $email;
     header("Location: ../dashboard.php");

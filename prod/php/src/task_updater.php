@@ -29,6 +29,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include 'task_gettter.php';
     $task__->updateTask($task_id, $task_description, $task_status);
     header("Location: ../dashboard.php");
-    exit();
 }
 ?>
