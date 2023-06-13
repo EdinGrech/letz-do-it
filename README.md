@@ -46,11 +46,13 @@ To deploy the Let's-Do-It PHP site using Docker Compose, follow these steps:
 
 2\. Ensure you have Docker and Docker Compose installed.
 
-3\. Open a terminal and navigate to the project directory.
+3\. Open a terminal and navigate to the project directory `cd letz-do-it/prod`.
 
 4\. Run the command `docker-compose up -d` to start the Docker containers in detached mode.
 
-5\. Wait for the containers to be built and started. Once completed, the Let's-Do-It site should be accessible at the specified port.
+5\. Run the command `chmod 777 letz-do-it/prod/images`
+
+6\. Wait for the containers to be built and started. Once completed, the Let's-Do-It site should be accessible at the specified port.
 
 Note: Before running the project, ensure that the necessary configuration files and environment variables are correctly set up, including the MySQL database credentials.
 
