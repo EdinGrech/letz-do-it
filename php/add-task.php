@@ -75,14 +75,22 @@ include 'components/head.php';
                         placeholder="Task Description">
                 </div>
                 <div class="form-group">
-                    <label for="task_status">Task Status</label>
                     <input type="hidden" name="task_status" value="0">
                 </div>
                 <input type="hidden" name="group_id" value="<?php echo $group_id_furl ?>">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button id="submitBtn" type="submit" disabled="true" class="btn btn-primary">Submit</button>
             </form>';
-
         } ?>
+        <script>
+            document.getElementById('task_description').addEventListener('input', function() {
+                let submitBtn = document.getElementById('submitBtn');
+                if (this.value.trim() === '') {
+                    submitBtn.disabled = true;
+                } else {
+                    submitBtn.disabled = false;
+                }
+            });
+        </script>
     </div>
 </body>
 
